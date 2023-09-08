@@ -10,13 +10,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors((options) => {
     options.AddPolicy("DevCors", (corsBuilder) => {
         corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000")
+        // ports for angular, react and vue in order.
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
     });
     options.AddPolicy("ProdCors", (corsBuilder) =>
     {
-        corsBuilder.WithOrigins("https://myProductionSite.com")
+        corsBuilder.WithOrigins("https://myProductionSite.com") // this value would be where the frontend domain is at
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -28,11 +29,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("DevCors");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 else
 {
+    app.UseCors("ProdCors");
     app.UseHttpsRedirection();
 
 }
