@@ -114,4 +114,21 @@ public class UserController : ControllerBase
         throw new Exception("Failed to add User");
     }
 
+    [HttpDelete("DeleteUser/{userId}")]
+    public IActionResult DeleteUser(int userId)
+    {
+        string sql = @"
+            DELETE FROM TutorialAppSchema.Users
+                WHERE UserId = " + userId.ToString();
+
+        Console.WriteLine(sql);
+
+        if (_dapper.ExecuteSql(sql))
+        {
+            return Ok();
+        }
+
+        throw new Exception("Failed to delete User/ Already deleted");
+    }
+
 }
