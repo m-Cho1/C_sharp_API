@@ -21,7 +21,7 @@ namespace DotnetAPI.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                  .UseSqlServer(_config.GetConnectionString("DefaultConnectionString"),
+                  .UseSqlServer(_config.GetConnectionString("DefaultConnection"),
                       optionsBuilder => optionsBuilder.EnableRetryOnFailure());
             }
         }
